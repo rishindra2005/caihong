@@ -133,16 +133,16 @@ export default async function ComingSoonPage() {
             </div>
             
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight">
-              Create Beautiful{' '}
+              Pro Docs in{' '}
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Documents
+                30 Seconds
               </span>
-              <br />in Minutes
+              <br />Not Hours
             </h1>
             
             <p className="max-w-2xl mx-auto text-xl text-gray-300">
-              Transform your ideas into professional documents and presentations with AI-powered assistance. 
-              No more spending hours on formatting and design.
+              Your personal AI document assistant. Just describe what you need, and watch as your 
+              professional documents come to life in seconds.
             </p>
 
             {/* Waitlist Form */}
