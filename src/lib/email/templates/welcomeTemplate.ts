@@ -1,4 +1,6 @@
 export function getWelcomeEmailTemplate(name?: string) {
+  const welcomeText = name ? `, ${name}` : '';
+  
   return `
     <!DOCTYPE html>
     <html>
@@ -8,8 +10,8 @@ export function getWelcomeEmailTemplate(name?: string) {
       <title>Welcome to CAIHONG</title>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     </head>
-    <body style="margin: 0; padding: 0; font-family: 'Inter', Arial, sans-serif; background: linear-gradient(135deg, #1e3a8a 0%, #4c1d95 50%, #312e81 100%);">
-      <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+    <body style="margin: 0; padding: 0; font-family: 'Inter', Arial, sans-serif; background: #ffffff;">
+      <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="background: #ffffff;">
         <tr>
           <td align="center" style="padding: 40px 0;">
             <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, rgba(30, 58, 138, 0.98) 0%, rgba(76, 29, 149, 0.98) 50%, rgba(49, 46, 129, 0.98) 100%); color: white; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);" role="presentation">
@@ -36,7 +38,7 @@ export function getWelcomeEmailTemplate(name?: string) {
                     <tr>
                       <td align="center" style="padding: 0 0 40px 0;">
                         <h1 style="margin: 0; font-size: 36px; font-weight: 700; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                          Welcome${name ? `, ${name}` : ''}!
+                          Welcome${welcomeText}!
                         </h1>
                         <p style="margin: 20px 0 0; font-size: 18px; line-height: 1.6; color: #e2e8f0;">
                           Thank you for joining our waitlist! We're excited to have you on board.
