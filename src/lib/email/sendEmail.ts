@@ -7,7 +7,7 @@ const transporter = nodemailer.createTransport({
   port: parseInt(process.env.SMTP_PORT || "465"),
   secure: true, // true for 465, false for other ports
   auth: {
-    user: process.env.EMAIL_ADDRESS || "no-replay@assigneditor.site",
+    user: process.env.EMAIL_ADDRESS || "no-reply@assigneditor.site",
     pass: process.env.EMAIL_PASSWORD || "Qwer@1234"
   },
   tls: {
@@ -37,7 +37,7 @@ export async function sendWelcomeEmail(recipientEmail: string, name?: string) {
     const mailOptions = {
       from: {
         name: "CAIHONG",
-        address: process.env.EMAIL_ADDRESS || "rishi@assigneditor.site"
+        address: process.env.EMAIL_ADDRESS || "no-reply@assigneditor.site"
       },
       to: recipientEmail,
       subject: "Welcome to CAIHONG Waitlist!",
