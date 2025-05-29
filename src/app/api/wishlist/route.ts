@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 import Wishlist from '@/lib/db/models/Wishlist';
+import { sendWelcomeEmail } from '@/lib/email/sendEmail';
+
+// Email validation regex
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Get total count of waitlist signups
 export async function GET() {
@@ -22,11 +26,21 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { email, name } = body;
+    let { email, name } = body;
 
-    if (!email) {
+    // Validate email
+    if (!email || typeof email !== 'string') {
       return NextResponse.json(
         { error: 'Email is required' },
+        { status: 400 }
+      );
+    }
+
+    // Clean and validate email format
+    email = email.trim().toLowerCase();
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: 'Invalid email format' },
         { status: 400 }
       );
     }
@@ -34,7 +48,7 @@ export async function POST(req: NextRequest) {
     await mongoose.connect(process.env.MONGODB_URI!);
 
     // Check if email already exists
-    const existing = await Wishlist.findOne({ email: email.toLowerCase() });
+    const existing = await Wishlist.findOne({ email });
     if (existing) {
       return NextResponse.json(
         { error: 'Email already registered' },
@@ -42,12 +56,26 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Clean name input
+    if (name) {
+      name = name.trim();
+      if (name.length === 0) name = undefined;
+    }
+
     // Create new wishlist entry
     const wishlist = await Wishlist.create({
-      email: email.toLowerCase(),
+      email,
       name,
       status: 'pending'
     });
+
+    // Send welcome email
+    try {
+      await sendWelcomeEmail(email, name);
+    } catch (emailError) {
+      console.error('Failed to send welcome email:', emailError);
+      // Don't return error to user, just log it
+    }
 
     return NextResponse.json({
       message: 'Successfully joined waitlist',
