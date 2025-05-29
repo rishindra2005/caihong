@@ -7,8 +7,8 @@ const transporter = nodemailer.createTransport({
   port: parseInt(process.env.SMTP_PORT || "465"),
   secure: true, // true for 465, false for other ports
   auth: {
-    user: process.env.EMAIL_ADDRESS || "rishi@assigneditor.site",
-    pass: process.env.EMAIL_PASSWORD || "rISHI@_2005"
+    user: process.env.EMAIL_ADDRESS || "no-replay@assigneditor.site",
+    pass: process.env.EMAIL_PASSWORD || "Qwer@1234"
   },
   tls: {
     // Do not fail on invalid certificates
